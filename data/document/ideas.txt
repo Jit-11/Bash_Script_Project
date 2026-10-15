@@ -1,0 +1,52 @@
+Ideas and Future Improvements
+1. Smart Document Search
+
+Allow users to search documents by file name, content, or keywords. Results could show matching text snippets to help users find information quickly.
+
+Initial version: Search by file name.
+
+Future improvement: Add full-text search and filters by file type or modification date.
+
+2. Automatic Saving
+
+Save changes automatically when a user edits a document.
+
+Benefits:
+
+Reduce the risk of losing work.
+Improve the editing experience.
+Avoid unnecessary manual steps.
+
+Considerations: Show a saving indicator and handle network or storage errors gracefully.
+
+3. Document Tags
+
+Allow users to assign tags such as work, personal, urgent, and reference to documents.
+
+This could make large collections easier to organize without requiring many nested folders.
+
+4. Recent Documents
+
+Display recently opened or edited files on the home screen.
+
+The list could include the document name, last modified date, and a quick-open action.
+
+5. Backup and Restore
+
+Create periodic backups of important documents and provide a way to restore an earlier version.
+
+Start with manual backups before considering automatic scheduling or version history.
+
+6. Better Task Management
+
+Connect notes and to-do lists so tasks can reference related documents.
+
+For example, a task called "Update API documentation" could link directly to the relevant notes file.
+
+Suggested Next Steps
+Implement document search.
+Add recent-document tracking.
+Improve error handling.
+Evaluate automatic saving and backups after the core functionality is stable.
+
+Guiding principle: Prioritize features that solve common problems and keep the interface simple.

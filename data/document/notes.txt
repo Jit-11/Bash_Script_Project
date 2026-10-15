@@ -1,0 +1,19 @@
+Notes
+Weekly Review — October 9, 2026
+Work
+Reviewed the current project status and identified a few tasks that need more attention.
+The dashboard layout is mostly complete, but the mobile view still needs some adjustments.
+Need to confirm the API response format before finishing the integration.
+Documentation should be updated whenever a major feature is completed.
+Ideas to Explore
+Add a simple search feature to make documents easier to find.
+Improve error messages so users know what went wrong and how to fix it.
+Consider adding automatic backups for important files.
+Personal
+Try to maintain a more consistent daily schedule.
+Set aside 30 minutes each day for learning something new.
+Review unfinished tasks every Friday.
+Reminders
+Keep file names consistent across the project.
+Test changes before merging them.
+Avoid adding features that are not necessary for the initial release.

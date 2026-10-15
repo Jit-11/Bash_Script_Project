@@ -1,0 +1,718 @@
+🧪 Capstone Homework: Build a Bash File & Log Management System
+You are going to build a command-line tool called file_manager.sh.
+
+The goal is to manage a directory of files, analyze them, search their contents, create reports, and perform actions based on user input.
+
+Rules
+Use Bash, not Python.
+
+Don't look up solutions while doing the core tasks.
+
+You can use man pages when you genuinely forget syntax.
+
+Try to solve each level yourself before moving on.
+
+Your script should be executable with:
+
+chmod +x file_manager.sh
+./file_manager.sh
+
+Part 1 — Set up your laboratory
+Create this structure:
+
+bash-homework/
+├── file_manager.sh
+├── data/
+│   ├── logs/
+│   ├── documents/
+│   ├── images/
+│   └── backup/
+└── output/
+
+Then create at least:
+
+data/logs/app.log
+data/logs/error.log
+data/logs/access.log
+
+data/documents/notes.txt
+data/documents/todo.txt
+data/documents/ideas.txt
+
+Put realistic content inside the files.
+
+For example, app.log could contain:
+
+INFO User login successful
+INFO Database connection established
+ERROR Database timeout
+INFO Request completed
+WARNING High memory usage
+ERROR Failed to process request
+
+Create at least 20–30 lines of mixed data across your files.
+
+Part 2 — Terminal & Finder Challenge
+Before writing your script, perform these manually.
+
+Task 1
+Navigate into your project using Terminal.
+
+You should be comfortable with:
+
+pwd
+cd
+ls
+ls -la
+
+Task 2
+Create, rename, copy and delete files/directories.
+
+Practice:
+
+touch
+mkdir
+cp
+mv
+rm
+
+Task 3
+Find your files.
+
+For example:
+
+Find every .log file inside data.
+
+Then:
+
+Find every .txt file.
+
+Then:
+
+Find all files modified recently.
+
+Part 3 — Hidden Files Challenge
+Create a hidden configuration file:
+
+.data_config
+
+Put something like:
+
+APP_NAME=FileManager
+VERSION=1
+AUTHOR=student
+
+Now practice:
+
+finding it
+
+viewing it
+
+editing it
+
+checking its permissions
+
+Your normal:
+
+ls
+
+shouldn't show it.
+
+But:
+
+ls -la
+
+should.
+
+Part 4 — Searching Challenge
+Now forget about your script for a moment.
+
+Suppose you want to answer:
+
+How many ERROR lines exist across all log files?: find . -type f -name '*.log' -exec grep -iH 'error' {} \; | wc -l
+
+Which files contain WARNING?: find . -type f -name '*.log' -exec grep -il 'warn' {} \;
+
+Show me every line containing Database.: find . -type f -name '*.log' -exec grep -i 'database' {} \;
+
+Show me only the first few matching lines.: find . -type f -name '*.log' -exec grep -i 'error' {} \; | head -n2
+
+Use the tools you learned rather than manually opening files.
+
+You should be able to investigate your data from the terminal.
+
+Part 5 — Paging Challenge
+Take one of your larger files and practice:
+
+less
+
+or whatever paging command your course covered.
+
+Your challenge:
+
+Open the file, search for ERROR, move around, and quit without using the mouse.
+
+This sounds trivial, but the goal is to become comfortable living in the terminal.
+
+Part 6 — Man Pages Challenge 🧠
+This is important.
+
+For each of these, do not Google the syntax first.
+
+Use:
+
+man
+
+and figure out what you need.
+
+Research:
+
+ls
+cp
+mv
+rm
+find
+grep
+cut
+tr
+chmod
+read
+printf
+
+For each command, write down:
+
+Command:
+What it does:
+One useful option:
+Example:
+
+This becomes your personal Bash cheat sheet.
+
+Part 7 — Your First file_manager.sh
+Now the real homework starts.
+
+Your program should display:
+
+==============================
+      FILE MANAGER
+==============================
+
+1. List files
+2. Search files
+3. Search inside files
+4. File statistics
+5. Create backup
+6. View logs
+7. Clean temporary files
+8. Exit
+
+Choose an option:q
+
+Use:
+
+variables
+
+read
+
+functions
+
+case
+
+loops
+
+conditionals
+
+Part 8 — Menu System
+Create a function:
+
+show_menu()
+
+It should print your menu.
+
+Then create a loop that repeatedly asks the user for an option.
+
+Conceptually:
+
+show menu
+↓
+read choice
+↓
+case choice
+↓
+perform operation
+↓
+show menu again
+↓
+exit when requested
+
+This single task will recap functions + user input + loops + case statements.
+
+Part 9 — Option 1: List Files
+When the user selects:
+
+1. List files
+
+show the files inside data.
+
+Then improve it.
+
+Ask:
+
+Do you want to include hidden files? (y/n)
+
+If yes, show hidden files too.
+
+Bonus
+Allow the user to select:
+
+1. Files only
+2. Directories only
+3. Everything
+
+Part 10 — Option 2: Search Files
+Ask:
+
+Enter filename or pattern:
+
+Example:
+
+*.log
+
+Then search your data directory.
+
+Example interaction:
+
+Enter filename or pattern: *.log
+
+Found:
+
+data/logs/app.log
+data/logs/error.log
+data/logs/access.log
+
+You should use your knowledge of file searching rather than hardcoding filenames.
+
+Part 11 — Option 3: Search Inside Files
+Ask:
+
+Enter text to search:
+
+Example:
+
+ERROR
+
+Your program should tell the user:
+
+Searching for: ERROR
+
+data/logs/app.log
+data/logs/error.log
+
+Total matches: 7
+
+Bonus
+Ask whether the search should be case-sensitive:
+
+Case-sensitive? (y/n)
+
+Part 12 — Option 4: File Statistics
+This is where things get interesting.
+
+Ask the user for a file:
+
+Enter file path:
+
+Then display something like:
+
+========== FILE STATISTICS ==========
+
+File: data/logs/app.log
+
+Lines:       25
+Words:       82
+Characters:  540
+
+Permissions: -rw-r--r--
+
+Use the commands/tools you've learned to calculate the information.
+
+Bonus
+Add:
+
+ERROR count:
+WARNING count:
+INFO count:
+
+Part 13 — Option 5: Backup System
+When the user selects:
+
+5. Create backup
+
+your script should:
+
+Create a backup directory if it doesn't exist.
+
+Copy your selected file into it.
+
+Give the backup a useful name.
+
+For example:
+
+data/logs/app.log
+
+could become something like:
+
+data/backup/app.log
+
+Better version
+Ask:
+
+Which file do you want to backup?
+
+Then:
+
+Backup created successfully.
+
+Part 14 — Option 6: Log Analyzer
+This is your first real-world-style feature.
+
+Create:
+
+analyze_logs()
+
+It should inspect all .log files.
+
+Output:
+
+========== LOG REPORT ==========
+
+Total log files: 3
+
+INFO:     42
+WARNING:  11
+ERROR:    17
+
+Most common error:
+Database timeout
+
+================================
+
+You don't need to implement "most common error" immediately.
+
+Start with:
+
+INFO count
+WARNING count
+ERROR count
+
+Then improve it.
+
+Part 15 — Arrays Challenge
+Now deliberately use an indexed array.
+
+Create an array containing your supported file extensions:
+
+.log
+.txt
+.csv
+.conf
+
+Your program should display:
+
+Supported file types:
+
+1. .log
+2. .txt
+3. .csv
+4. .conf
+
+Then use a loop to process the array.
+
+Part 16 — Associative Array Challenge
+Now use an associative array to represent statistics.
+
+Conceptually:
+
+INFO     → 42
+WARNING  → 11
+ERROR    → 17
+
+Your script should be able to update and print these values.
+
+This is a very good test of whether you actually understand associative arrays rather than just remembering syntax.
+
+Part 17 — IFS Challenge
+Create a file:
+
+users.txt
+
+with:
+
+john:developer:active
+alice:admin:active
+bob:developer:inactive
+sarah:designer:active
+
+Now write a Bash script that reads each line and separates:
+
+username
+role
+status
+
+Then produce:
+
+Username: john
+Role: developer
+Status: active
+
+Do this using IFS.
+
+Part 18 — Command Substitution Challenge
+Your script should dynamically calculate information.
+
+For example:
+
+Total files: 15
+Current directory: /some/path
+Current date: ...
+
+The values should be generated by commands, not hardcoded.
+
+This tests whether you understand:
+
+$(...)
+
+Part 19 — Arithmetic Challenge
+Add a dashboard:
+
+========== DASHBOARD ==========
+
+Total files:       25
+Log files:         10
+Text files:        8
+Other files:       7
+
+Total errors:      14
+Total warnings:    9
+
+================================
+
+Then calculate something such as:
+
+Error percentage: 23%
+
+Use Bash arithmetic.
+
+Part 20 — Process Substitution Challenge
+This is your hard mode.
+
+Take two files:
+
+users.txt
+users_backup.txt
+
+Compare their processed/sorted contents without creating unnecessary temporary files.
+
+Try to use process substitution:
+
+<(...)
+
+The goal isn't merely to memorize the syntax.
+
+You should understand:
+
+"I can treat the output of a command like a file."
+
+Part 21 — cut Challenge
+Create:
+
+employees.csv
+
+Example:
+
+101,John,Developer,50000
+102,Alice,Designer,55000
+103,Bob,Manager,70000
+104,Sarah,Developer,60000
+
+Use cut to extract:
+
+Employee names
+
+Then:
+
+Job titles
+
+Then:
+
+Salaries
+
+Finally calculate how many employees are developers.
+
+Part 22 — tr Challenge
+Use tr to transform data.
+
+Try:
+
+Challenge A
+Convert:
+
+hello world
+
+into:
+
+HELLO WORLD
+
+Challenge B
+Remove unwanted characters from input.
+
+Challenge C
+Convert a file containing mixed-case data into lowercase.
+
+Challenge D
+Use tr together with another command.
+
+🏆 Final Boss
+Once you've completed everything above, combine it all.
+
+Your final program should look something like:
+
+╔══════════════════════════════════╗
+║       BASH FILE MANAGER          ║
+╚══════════════════════════════════╝
+
+1. List files
+2. Search files
+3. Search inside files
+4. File statistics
+5. Backup file
+6. Log analyzer
+7. User information
+8. File type statistics
+9. Data transformation
+10. Dashboard
+11. Exit
+
+Choose:
+
+Your program should contain separate functions such as:
+
+show_menu()
+list_files()
+search_files()
+search_content()
+file_statistics()
+backup_file()
+analyze_logs()
+show_users()
+file_type_statistics()
+transform_data()
+show_dashboard()
+
+Use a main loop to connect everything.
+
+🔥 Rules for the Final Project
+Try to make yourself obey these rules:
+
+Rule 1 — No hardcoding results
+Bad:
+
+echo "Total files: 25"
+
+Good:
+
+count=$(...)
+echo "Total files: $count"
+
+Rule 2 — Validate user input
+If the user enters:
+
+99
+
+don't let your program break.
+
+Say:
+
+Invalid option.
+Please choose 1-11.
+
+Rule 3 — Handle missing files
+If the user enters:
+
+abc.txt
+
+and it doesn't exist:
+Error: file does not exist.
+
+Rule 4 — Use functions
+Don't write one giant 300-line script.
+
+Rule 5 — Use case
+Your menu should naturally use a case statement.
+
+Rule 6 — Use loops
+Your menu should continue until the user chooses Exit.
+
+Rule 7 — Use arrays
+At least one indexed array and one associative array.
+
+Rule 8 — Use command substitution
+At least several places where you dynamically capture command output.
+
+Rule 9 — Use cut and tr
+Don't just practice them separately—use them in your project.
+
+Rule 10 — Use man
+When you forget something, your first instinct should be:
+
+man command
+
+rather than immediately searching Google.
+
+🎯 Your Progress Checklist
+Don't move on until you can honestly check these:
+
+[ ] Terminal navigation
+[ ] File creation
+[ ] Copy / move / delete
+[ ] Hidden files
+[ ] Searching files
+[ ] Searching inside files
+[ ] Paging files
+[ ] Using man pages
+[ ] Commands vs programs
+[ ] Variables
+[ ] vim basics
+[ ] File permissions
+[ ] User input
+[ ] Functions
+[ ] if / elif / else
+[ ] for loops
+[ ] while loops
+[ ] Input / output
+[ ] case statements
+[ ] Indexed arrays
+[ ] Associative arrays
+[ ] IFS
+[ ] Command substitution
+[ ] Arithmetic expressions
+[ ] Process substitution
+[ ] cut
+[ ] tr
+
+⭐ One extra challenge
+After finishing the project, delete file_manager.sh.
+
+Then rebuild it from scratch.
+
+Don't watch the tutorial.
+
+Don't copy your old code.
+
+Use only:
+
+man
+
+and your own understanding.
+
+

@@ -1,0 +1,23 @@
+To-Do List
+High Priority
+Fix the mobile navigation layout.
+Test document upload and download functionality.
+Handle errors when a file cannot be opened.
+Review the latest changes before merging.
+Medium Priority
+Add search functionality to the document list.
+Improve empty-state messages.
+Organize project files into logical folders.
+Update the README with setup instructions.
+Low Priority
+Improve button spacing and typography.
+Add keyboard shortcuts for common actions.
+Remove unused code and dependencies.
+Review opportunities for performance improvements.
+Completed
+Create the initial project structure.
+Add basic document listing.
+Set up the development environment.
+Notes
+
+Focus on completing the high-priority items before starting new features. Test each change locally and document any known issues.
