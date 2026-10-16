@@ -77,10 +77,32 @@ On_IWhite='\033[0;107m'   # White
 
 greet() {
     local name="$1"
-    printf "\n${BIYellow}Welcome,${Color_Off} ${BIGreen}%s\n\n${Color_Off}" "${name:-"$(whoami)"}"
+    printf "\n${BIYellow}Welcome,${Color_Off} ${BIGreen}%s\n${Color_Off}" "${name:-"$(whoami)"}"
 }
 
 goodbye() {
     local name="$1"
-    printf "\n${BIGreen}Goodbye, %s.${Color_Off} ${BIYellow}Have nice day.\n\n${Color_Off}" "${name:-"$(whoami)"}"
+    printf "\n${BIGreen}Goodbye, %s.${Color_Off} ${BIYellow}Have nice day.\n${Color_Off}" "${name:-"$(whoami)"}"
+}
+
+show_menu() {
+
+    local menu=(
+    " ╔══════════════════════════════════════╗"
+    " ║              MAIN MENU               ║"
+    " ╠══════════════════════════════════════╣"
+    " ║  1.  List files                      ║"
+    " ║  2.  Search files                    ║"
+    " ║  3.  Search inside files             ║"
+    " ║  4.  File statistics                 ║"
+    " ║  5.  Create backup                   ║"
+    " ║  6.  View logs                       ║"
+    " ║  7.  Clean temporary files           ║"
+    " ║  8.  Exit                            ║"
+    " ╚══════════════════════════════════════╝"
+)
+    for item in "${menu[@]}"
+    do
+        printf '\t%b%s%b\n' "${On_IYellow}" "$item" "${Color_Off}"
+    done
 }
