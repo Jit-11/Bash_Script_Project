@@ -106,3 +106,22 @@ show_menu() {
         printf '\t%b%s%b\n' "${On_IYellow}" "$item" "${Color_Off}"
     done
 }
+
+show_searchMenu()
+{
+    local Searchmenu=(
+    " ╔══════════════════════════════════════╗"
+    " ║           FILE SEARCH MENU           ║"
+    " ╠══════════════════════════════════════╣"
+    " ║  1.  Search by file name             ║"
+    " ║  2.  Search by extension             ║"
+    " ║  3.  Search in specific directory    ║"
+    " ║  4.  Search hidden files             ║"
+    " ╚══════════════════════════════════════╝"
+)
+
+    for item in "${Searchmenu[@]}"
+    do 
+        printf '\t%b%s%b\n' "${On_IYellow}" "$item" "${Color_Off}"
+    done
+}

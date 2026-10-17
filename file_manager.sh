@@ -93,10 +93,58 @@ do
 			;;
 
 		2)
-			read -p "$(printf "\n${BCyan}Enter file name you want to search: ${Color_Off}\n")" file_name
+			
+			while [[ true ]]
+			do
+				show_searchMenu
+				read -p "$(printf "Enter option for file search menu: ")" file_search_opt
+				case "$file_search_opt" in
+					1)
+						read -p "$(printf "Enter file name you want search: ")" file_name
+						res="$(find "${HOME}" -type f -name  "*${file_name}*")"
+						if [[ -z "${res}" ]]
+						then 
+							printf "There is no file with name: ${file_name}"
+						else
+							echo "${res}"
+						fi
+						;;
+					2)
+						read -p "$(printf "Enter extension you want search(don't use .): ")" ext_name
+						res="$(find "${HOME}" -type f -iname  "*.${ext_name}")"
 
-			res="$(find "$HOME" -name "*$file_name*")"
-			echo "$res"
+						if [[ -z "${res}" ]]
+						then 
+							printf "There is no file with extension: ${ext_name}"
+						else
+							echo "${res}"
+						fi
+						;;
+					3)
+						read -p "$(printf "Enter directory name where you want search file: ")" dir_name
+						read -p "$(printf "Enter file name you want search: ")" file_name
+
+						if [ -d "${dir_name}" ]
+						then
+							res="$(find "${dir_name}" -type f -iname  "*${file_name}*")"
+							if [[ -z "$res" ]]
+							then 
+								printf 'No file found containing "%s" in "%s".\n' "$file_name" "$dir_name"
+							else
+								printf 'Directory does not exist: %s\n' "$dir_name"
+							fi
+						else
+							echo "${res}"
+						fi
+						;;
+					4)
+						;;
+					*)
+						printf "\n${BRed}Enter valid option${Color_Off}\n"
+						continue
+						;;
+				esac
+			done
 			;;
 			
 		*)
