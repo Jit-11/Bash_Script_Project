@@ -75,14 +75,33 @@ On_IPurple='\033[0;105m'  # Purple
 On_ICyan='\033[0;106m'    # Cyan
 On_IWhite='\033[0;107m'   # White
 
+# ---------- UI helper functions (presentation only) ----------
+
+# Horizontal divider line
+divider() {
+    printf "${BBlue}  ────────────────────────────────────────────────────────${Color_Off}\n"
+}
+
+# Section title banner
+section_title() {
+    printf "\n${BYellow}  ▶ %s${Color_Off}\n" "$1"
+    divider
+}
+
+# Wait for the user before returning to a menu
+pause_prompt() {
+    read -r -p "$(printf "\n${BCyan}  ⏎  Press Enter to continue...${Color_Off}")"
+    printf "\n"
+}
+
 greet() {
     local name="$1"
-    printf "\n${BIYellow}Welcome,${Color_Off} ${BIGreen}%s\n${Color_Off}" "${name:-"$(whoami)"}"
+    printf "\n\t${BIYellow}👋 Welcome,${Color_Off} ${BIGreen}%s${Color_Off}\n" "${name:-"$(whoami)"}"
 }
 
 goodbye() {
     local name="$1"
-    printf "\n${BIGreen}Goodbye, %s.${Color_Off} ${BIYellow}Have nice day.\n${Color_Off}" "${name:-"$(whoami)"}"
+    printf "\n\t${BIGreen}👋 Goodbye, %s.${Color_Off} ${BIYellow}Have a nice day! ✨${Color_Off}\n\n" "${name:-"$(whoami)"}"
 }
 
 show_menu() {
@@ -101,9 +120,10 @@ show_menu() {
     " ║  8.  Exit                            ║"
     " ╚══════════════════════════════════════╝"
 )
+    printf "\n"
     for item in "${menu[@]}"
     do
-        printf '\t%b%s%b\n' "${On_IYellow}" "$item" "${Color_Off}"
+        printf '\t%b%b%s%b\n' "${On_IYellow}" "${BBlack}" "$item" "${Color_Off}"
     done
 }
 
@@ -120,8 +140,9 @@ show_searchMenu()
     " ╚══════════════════════════════════════╝"
 )
 
+    printf "\n"
     for item in "${Searchmenu[@]}"
     do 
-        printf '\t%b%s%b\n' "${On_IYellow}" "$item" "${Color_Off}"
+        printf '\t%b%b%s%b\n' "${On_IYellow}" "${BBlack}" "$item" "${Color_Off}"
     done
 }
