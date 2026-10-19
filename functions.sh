@@ -137,6 +137,7 @@ show_searchMenu()
     " ║  2.  Search by extension             ║"
     " ║  3.  Search in specific directory    ║"
     " ║  4.  Search hidden files             ║"
+    " ║  5.  Back                            ║"
     " ╚══════════════════════════════════════╝"
 )
 
@@ -145,4 +146,79 @@ show_searchMenu()
     do 
         printf '\t%b%b%s%b\n' "${On_IYellow}" "${BBlack}" "$item" "${Color_Off}"
     done
+}
+
+show_fileMenu()
+{
+    local Filemenu=(
+        " ╔══════════════════════════════════════╗"
+        " ║            FILE OPTIONS              ║"
+        " ╠══════════════════════════════════════╣"
+        " ║  1. Read file                        ║"
+        " ║  2. Edit file                        ║"
+        " ║  3. Delete file                      ║"
+        " ║  4. File details                     ║"
+        " ║  5. Eat five and do Nothing          ║"
+        " ╚══════════════════════════════════════╝"
+    )
+
+    printf "\n"
+    for item in "${Filemenu[@]}"
+    do 
+        printf '\t%b%b%s%b\n' "${On_IYellow}" "${BBlack}" "$item" "${Color_Off}"
+
+    done
+    echo -e "${res}"
+    local file_name file_opt
+    while [[ true ]]
+    do
+        read -p "$(printf "Enter which option you would like to do: ")" file_opt
+        if [[ "${file_opt}" == +([0-9]) ]]
+        then
+            break
+        fi
+    done
+    while [[ true ]]
+    do
+        read -p "$(printf "Enter Correspoing file number: ")" file_number
+        if [[ "${file_opt}" == +([0-9]) ]]
+        then
+            file_name="$(printf "%s" "$1" | head -n "${file_number}" | tail -n -1)"
+            break
+        fi
+    done
+    echo "${file_name}"
+    case "${file_opt}" in
+        1)
+            if [[ -f "${file_name}" ]]
+            then 
+                printf "$(batcat ${file_name})"
+            fi
+            ;;
+        2)
+            read -p "$(printf "Enter filename from results files only: ")" file_name
+            if [[ -f "${file_name}" ]]
+            then 
+                printf "$(xdg-open ${file_name})"
+            fi
+            ;;
+        3)
+            read -p "$(printf "Enter filename from results files only: ")" file_name
+            if [[ -f "${file_name}" ]]
+            then 
+                printf "$(rm -i ${file_name})"
+            fi
+            ;;
+        4)
+            read -p "$(printf "Enter filename from results files only: ")" file_name
+            if [[ -f "${file_name}" ]]
+            then 
+                printf "$(ls -l ${file_name})"
+            fi
+            ;;
+        5)
+            ;;
+        *)
+            ;;
+    esac
 }
