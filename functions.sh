@@ -222,3 +222,39 @@ show_fileMenu()
             ;;
     esac
 }
+search__InfileMenu()
+{
+    local Filemenu=(
+        " ╔══════════════════════════════════════╗"
+        " ║              OPTIONS                 ║"
+        " ╠══════════════════════════════════════╣"
+        " ║  1. Search In file                   ║"
+        " ║  2. Eat five and do Nothing          ║"
+        " ╚══════════════════════════════════════╝"
+    )
+
+    printf "\n"
+    for item in "${Filemenu[@]}"
+    do 
+        printf '\t%b%b%s%b\n' "${On_IYellow}" "${BBlack}" "$item" "${Color_Off}"
+
+    done
+}
+statMenu()
+{
+    local Filemenu=(
+        " ╔══════════════════════════════════════╗"
+        " ║              OPTIONS                 ║"
+        " ╠══════════════════════════════════════╣"
+        " ║  1. File Stat                        ║"
+        " ║  2. Eat five and do Nothing          ║"
+        " ╚══════════════════════════════════════╝"
+    )
+
+    printf "\n"
+    for item in "${Filemenu[@]}"
+    do 
+        printf '\t%b%b%s%b\n' "${On_IYellow}" "${BBlack}" "$item" "${Color_Off}"
+
+    done
+}

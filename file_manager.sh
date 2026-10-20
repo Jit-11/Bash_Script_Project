@@ -171,7 +171,7 @@ do
 						read -p "$(printf "${BCyan}  ➤ Enter directory name where you want search file: ${Color_Off}")" dir_name
 						read -p "$(printf "${BCyan}  ➤ Enter file name you want search: ${Color_Off}")" file_name
 
-						if [ -n "${dir_name}" -d "${dir_name}" ]
+						if [[ (-n "${dir_name}")  && (-d "${dir_name}" ) ]]
 						then
 							if [[ -n "${file_name}" && "${file_name}" != */* ]]
 							then 
@@ -193,6 +193,18 @@ do
 						pause_prompt
 						;;
 					4)
+						section_title "SEARCH HIDDEN Files"
+						read -p "$(printf "${BCyan}  ➤ Enter file name you want search: ${Color_Off}")" file_name
+						if [[ -n "${file_name}" && "${file_name}" != */* ]]
+						then 
+							res="$(find "${HOME}" -type f -name  ."*${file_name}*")"
+							echo -e "\n${BGreen}$(printf "%s\n" "${res}" | cat -n)${Color_Off}"
+							show_fileMenu	"${res}"
+						else
+							printf "\n${BRed}  ✘ There is no file with name: ${file_name}${Color_Off}\n"
+							printf "\n${BRed}  ✘ Please enter valid filename${Color_Off}\n"
+						fi
+						pause_prompt
 						;;
 					5)
 						break
@@ -205,6 +217,84 @@ do
 			done
 			;;
 			
+		3)
+			while [[ true ]]
+			do
+				search__InfileMenu
+				read -p "$(printf "\n${BCyan}  ➤ Enter option for file search menu: ${Color_Off}")" file_search_opt
+				if [[ -z "${file_search_opt}" ]]
+				then
+					printf "\n${BRed}  ✘ Enter valid option${Color_Off}\n"
+					continue
+				fi
+				case "$file_search_opt" in
+					1)
+						section_title "SEARCH IN FILE NAME"
+						read -p "$(printf "${BCyan}  ➤ Enter file name you want search: ${Color_Off}")" file_name
+						if [[ -n "${file_name}" && "${file_name}" != */* ]]
+						then 
+							res="$(find "${HOME}" -type f -name  "*${file_name}.*")"
+						
+							read -p "$(printf "${BCyan}  ➤ Enter text/number you want search: ${Color_Off}")" Pattern
+							for item in "${res[@]}"
+							do
+								result="$(grep -i "${Pattern}" "${item}" | wc -m)"
+								printf "%s\nWord count: %d" "$item" "${result}"
+							done
+						else
+							printf "\n${BRed}  ✘ There is no file with name: ${file_name}${Color_Off}\n"
+							printf "\n${BRed}  ✘ Please enter valid filename${Color_Off}\n"
+						fi
+						pause_prompt
+						;;
+					2)
+						break
+						;;
+					*)
+						printf "\n${BRed}  ✘ Enter valid option${Color_Off}\n"
+						continue
+						;;
+				esac
+			done
+			;;
+		4)
+			while [[ true ]]
+			do
+				statMenu
+				read -p "$(printf "\n${BCyan}  ➤ Enter option for file stat menu: ${Color_Off}")" file_search_opt
+				if [[ -z "${file_search_opt}" ]]
+				then
+					printf "\n${BRed}  ✘ Enter valid option${Color_Off}\n"
+					continue
+				fi
+				case "$file_search_opt" in
+					1)
+						section_title "Stat FILE NAME"
+						read -p "$(printf "${BCyan}  ➤ Enter file name/path you want search: ${Color_Off}")" file_name
+						if [[ -n "${file_name}" && "${file_name}" != */* ]]
+						then 
+							res="$(find "${HOME}" -type f -name  "*${file_name}.*")"
+							for item in "${res[@]}"
+							do
+								result="$(stat "${item}")"
+								printf "%s" "${result}"
+							done
+						else
+							printf "\n${BRed}  ✘ There is no file with name: ${file_name}${Color_Off}\n"
+							printf "\n${BRed}  ✘ Please enter valid filename${Color_Off}\n"
+						fi
+						pause_prompt
+						;;
+					2)
+						break
+						;;
+					*)
+						printf "\n${BRed}  ✘ Enter valid option${Color_Off}\n"
+						continue
+						;;
+				esac
+			done
+			;;
 		*)
 			echo -e "\n${BRed}  ✘ Enter valid option${Color_Off}\n"
 			;;
