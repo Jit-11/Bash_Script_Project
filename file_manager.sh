@@ -7,7 +7,16 @@
 source ./functions.sh
 
 greet "$(whoami)"
-printf "\n\t     ${On_Red}==============================${Color_Off}\n\t     ${On_Red}        FILE MANAGER          ${Color_Off}\n\t     ${On_Red}==============================${Color_Off}\n\n"
+banner=(
+" ╔══════════════════════════════════════╗"
+" ║             FILE MANAGER             ║"
+" ╚══════════════════════════════════════╝"
+)
+printf "\n"
+for item in "${banner[@]}"
+do
+	printf '\t%b%b%s%b\n' "${On_IYellow}" "${BBlack}" "$item" "${Color_Off}"
+done
 
 
 while [[ true ]]
@@ -34,7 +43,7 @@ do
 			do
 				echo -e "\n${BYellow}  Option\tDirectory${Color_Off}\n"
 				echo -e "${BWhite}$(find "$dir" -maxdepth 1 -type d ! -name ".*" | sort | cat -n)${Color_Off}\n"
-				echo -e "${BWhite}Enter -1 for exit: ${Color_Off}\n"
+				printf "${BWhite}  ℹ  Enter -1 to exit${Color_Off}\n\n"
 				read -p "$(printf "${BCyan}  ➤ Enter which directory you want to explore: ${Color_Off}")" opt
 				
 				if [[ "$opt" == -1 ]]
@@ -65,13 +74,21 @@ do
 				printf "${BRed}  ✘ There is no file in ${dir}${Color_Off}\n"
 			fi
 
-			options=(
-			"\n${BYellow}  Which files do you want to see?${Color_Off}\n"
-			"\n\t${BWhite}1.${Color_Off} Regular files only"
-			"\n\t${BWhite}2.${Color_Off} Hidden files only"
-			"\n\t${BWhite}3.${Color_Off} All files (including hidden)\n"
+			listMenu=(
+			" ╔══════════════════════════════════════╗"
+			" ║           LIST FILES MENU            ║"
+			" ╠══════════════════════════════════════╣"
+			" ║  1.  Regular files only              ║"
+			" ║  2.  Hidden files only               ║"
+			" ║  3.  All files (including hidden)    ║"
+			" ╚══════════════════════════════════════╝"
 			)
-			echo -e "${options[@]}"
+			printf "\n"
+			for item in "${listMenu[@]}"
+			do
+				printf '\t%b%b%s%b\n' "${On_IYellow}" "${BBlack}" "$item" "${Color_Off}"
+			done
+			printf "\n"
 			
 			while [[ true ]]
 			do
@@ -100,7 +117,7 @@ do
 						;;
 					*)
 						# user enter invalid option
-						printf "\n${BRed}  ✘ Enter valid option${Color_Off}\n\n"
+						printf "\n${BRed}  ✘ Enter valid option${Color_Off}\n"
 						continue
 						;;
 				esac
@@ -170,8 +187,8 @@ do
 								printf "\n${BRed}  ✘ File does not exist: %s${Color_Off}\n" "${file_name}"
 							fi
 						else
-							printf "\n${BRed}Invalid Directory${Color_Off}"
-							printf "\n${BRed}Please Enter valid directory path ${Color_Off}"
+							printf "\n${BRed}  ✘ Invalid directory${Color_Off}\n"
+							printf "\n${BRed}  ✘ Please enter valid directory path${Color_Off}\n"
 						fi
 						pause_prompt
 						;;
